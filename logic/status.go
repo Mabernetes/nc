@@ -1,17 +1,30 @@
 package logic
 
 import (
+	"context"
+	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/client"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/mem"
 	"math"
+	"node/utils"
 )
 
 type StatusLogic struct {
+	cli *client.Client
 }
 
 func NewStatusLogic() *StatusLogic {
-	return &StatusLogic{}
+	cli, err := client.NewClientWithOpts(client.FromEnv)
+	if err != nil {
+		panic(err)
+	}
+
+	return &StatusLogic{
+		cli: cli,
+	}
 }
 
 type ServerStatusData struct {
@@ -57,4 +70,28 @@ func (l StatusLogic) Server() ServerStatusData {
 	}
 
 	return status
+}
+
+type DeploymentStatusData map[string]struct {
+	Started int `json:"started"`
+	Stopped int `json:"stopped"`
+	Total   int `json:"total"`
+}
+
+func (l StatusLogic) Deployment(deployment, pod string) ([]types.Container, error) {
+	var containers []types.Container
+	var err error
+	containers, err = l.cli.ContainerList(context.Background(), container.ListOptions{All: true})
+	if err != nil {
+		return containers, err
+	}
+
+	if deployment != "" {
+		containers = utils.ContainersDeploymentFilter(deployment, containers)
+	}
+	if pod != "" {
+		containers = utils.ContainersPodFilter(pod, containers)
+	}
+
+	return containers, nil
 }

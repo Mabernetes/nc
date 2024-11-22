@@ -1,9 +1,13 @@
 package logic
 
-import "node/db"
+import (
+	"github.com/docker/docker/api/types"
+	"node/db"
+)
 
 type Status interface {
 	Server() ServerStatusData
+	Deployment(deployment, pod string) ([]types.Container, error)
 }
 
 type Logic struct {
