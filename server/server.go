@@ -10,10 +10,12 @@ import (
 
 func RunServer(handler *handlers.Handler) error {
 	mux := goji.NewMux()
+
 	mux.Use(middlewares.LoggerMiddleware)
 	mux.Use(middlewares.JSONResponseMiddleware)
 
 	mux.Handle(pat.New("/status/*"), StatusRouter(handler))
+	mux.Handle(pat.New("/configs/*"), ConfigRouter(handler))
 
 	return http.ListenAndServe(":80", mux)
 }
