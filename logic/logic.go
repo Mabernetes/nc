@@ -14,6 +14,7 @@ type Config interface {
 	GetTree() (ConfigsTree, error)
 	ReadConfigFile(deployment, pod string) (utils.ComposeFile, error)
 	SaveConfigFile(deployment, pod string, data utils.ComposeFile) error
+	GetFilePath(deployment, pod string) string
 }
 
 type Logic struct {

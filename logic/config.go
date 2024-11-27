@@ -58,7 +58,7 @@ func (l *ConfigLogic) GetTree() (ConfigsTree, error) {
 }
 
 func (l *ConfigLogic) ReadConfigFile(deployment, pod string) (utils.ComposeFile, error) {
-	var path string = l.getFilePath(deployment, pod)
+	var path string = l.GetFilePath(deployment, pod)
 	var fileData utils.ComposeFile
 
 	fileBytes, err := os.ReadFile(path)
@@ -71,7 +71,7 @@ func (l *ConfigLogic) ReadConfigFile(deployment, pod string) (utils.ComposeFile,
 }
 
 func (l *ConfigLogic) SaveConfigFile(deployment, pod string, data utils.ComposeFile) error {
-	var path string = l.getFilePath(deployment, pod)
+	var path string = l.GetFilePath(deployment, pod)
 
 	dataBytes, err := yaml.Marshal(data)
 	if err != nil {
@@ -81,7 +81,7 @@ func (l *ConfigLogic) SaveConfigFile(deployment, pod string, data utils.ComposeF
 	return os.WriteFile(path, dataBytes, 0644)
 }
 
-func (l *ConfigLogic) getFilePath(deployment, pod string) string {
+func (l *ConfigLogic) GetFilePath(deployment, pod string) string {
 	var path string = filepath.Join(l.rootDir, deployment)
 	if pod == "" {
 		path = filepath.Join(path, "deployment.yaml")
