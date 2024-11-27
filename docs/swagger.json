@@ -1,0 +1,260 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server seller server.",
+        "title": "M8s Node Controller API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Marsh Meg",
+            "url": "https://t.me/marshmeg",
+            "email": "uraevdmitrij031@gmail.com"
+        },
+        "license": {
+            "name": "MI"
+        },
+        "version": "0.1"
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "paths": {
+        "/configs/": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "Show configs tree",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/logic.ConfigFile"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/configs/:deployment/:pod": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "Show config file",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ComposeFile"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    }
+                }
+            },
+            "put": {
+                "description": "POST == PUT",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "Save or update config file",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    }
+                }
+            },
+            "post": {
+                "description": "POST == PUT",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "config"
+                ],
+                "summary": "Save or update config file",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/status/runner": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "status"
+                ],
+                "summary": "Show runner status",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "$ref": "#/definitions/logic.DeploymentStatusData"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/status/server": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "status"
+                ],
+                "summary": "Show server status",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/logic.ServerStatusData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "logic.ConfigFile": {
+            "type": "object",
+            "properties": {
+                "deployment": {
+                    "type": "string"
+                },
+                "pod": {
+                    "type": "string"
+                }
+            }
+        },
+        "logic.DeploymentStatusData": {
+            "type": "object",
+            "properties": {
+                "started": {
+                    "type": "integer"
+                },
+                "stopped": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "logic.ServerStatusData": {
+            "type": "object",
+            "properties": {
+                "cpu": {
+                    "type": "object",
+                    "properties": {
+                        "max": {
+                            "type": "integer"
+                        },
+                        "use": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "disk": {
+                    "type": "object",
+                    "properties": {
+                        "max": {
+                            "type": "integer"
+                        },
+                        "use": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "mem": {
+                    "type": "object",
+                    "properties": {
+                        "max": {
+                            "type": "integer"
+                        },
+                        "use": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "utils.ComposeFile": {
+            "type": "object",
+            "properties": {
+                "networks": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "services": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "version": {
+                    "type": "string"
+                },
+                "volumes": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
+            }
+        }
+    }
+}

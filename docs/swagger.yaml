@@ -1,0 +1,172 @@
+basePath: /
+definitions:
+  logic.ConfigFile:
+    properties:
+      deployment:
+        type: string
+      pod:
+        type: string
+    type: object
+  logic.DeploymentStatusData:
+    properties:
+      started:
+        type: integer
+      stopped:
+        type: integer
+      total:
+        type: integer
+    type: object
+  logic.ServerStatusData:
+    properties:
+      cpu:
+        properties:
+          max:
+            type: integer
+          use:
+            type: integer
+        type: object
+      disk:
+        properties:
+          max:
+            type: integer
+          use:
+            type: integer
+        type: object
+      mem:
+        properties:
+          max:
+            type: integer
+          use:
+            type: integer
+        type: object
+    type: object
+  utils.ComposeFile:
+    properties:
+      networks:
+        additionalProperties: true
+        type: object
+      services:
+        additionalProperties: true
+        type: object
+      version:
+        type: string
+      volumes:
+        additionalProperties: true
+        type: object
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: uraevdmitrij031@gmail.com
+    name: Marsh Meg
+    url: https://t.me/marshmeg
+  description: This is a sample server seller server.
+  license:
+    name: MI
+  termsOfService: http://swagger.io/terms/
+  title: M8s Node Controller API
+  version: "0.1"
+paths:
+  /configs/:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/logic.ConfigFile'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Show configs tree
+      tags:
+      - config
+  /configs/:deployment/:pod:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ComposeFile'
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Show config file
+      tags:
+      - config
+    post:
+      consumes:
+      - application/json
+      description: POST == PUT
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Save or update config file
+      tags:
+      - config
+    put:
+      consumes:
+      - application/json
+      description: POST == PUT
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Save or update config file
+      tags:
+      - config
+  /status/runner:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/logic.DeploymentStatusData'
+            type: object
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Show runner status
+      tags:
+      - status
+  /status/server:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/logic.ServerStatusData'
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Show server status
+      tags:
+      - status
+swagger: "2.0"

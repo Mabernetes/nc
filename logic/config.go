@@ -2,6 +2,8 @@ package logic
 
 import (
 	"fmt"
+	"gopkg.in/yaml.v3"
+	"node/utils"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -55,13 +57,36 @@ func (l *ConfigLogic) GetTree() (ConfigsTree, error) {
 	return out, nil
 }
 
-func (l *ConfigLogic) LoadConfigFile(deployment, pod string) (string, error) {
+func (l *ConfigLogic) ReadConfigFile(deployment, pod string) (utils.ComposeFile, error) {
+	var path string = l.getFilePath(deployment, pod)
+	var fileData utils.ComposeFile
+
+	fileBytes, err := os.ReadFile(path)
+	if err != nil {
+		return fileData, err
+	}
+
+	err = yaml.Unmarshal(fileBytes, &fileData)
+	return fileData, err
+}
+
+func (l *ConfigLogic) SaveConfigFile(deployment, pod string, data utils.ComposeFile) error {
+	var path string = l.getFilePath(deployment, pod)
+
+	dataBytes, err := yaml.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	return os.WriteFile(path, dataBytes, 0644)
+}
+
+func (l *ConfigLogic) getFilePath(deployment, pod string) string {
 	var path string = filepath.Join(l.rootDir, deployment)
 	if pod == "" {
 		path = filepath.Join(path, "deployment.yaml")
 	} else {
 		path = filepath.Join(path, fmt.Sprintf("pod-%s.yaml", pod))
 	}
-
-	return path, nil
+	return path
 }

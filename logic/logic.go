@@ -1,18 +1,19 @@
 package logic
 
 import (
-	"github.com/docker/docker/api/types"
 	"node/db"
+	"node/utils"
 )
 
 type Status interface {
 	Server() ServerStatusData
-	Deployment(deployment, pod string) ([]types.Container, error)
+	Runner() (map[string]DeploymentStatusData, error)
 }
 
 type Config interface {
 	GetTree() (ConfigsTree, error)
-	LoadConfigFile(deployment, pod string) (string, error)
+	ReadConfigFile(deployment, pod string) (utils.ComposeFile, error)
+	SaveConfigFile(deployment, pod string, data utils.ComposeFile) error
 }
 
 type Logic struct {

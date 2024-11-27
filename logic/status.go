@@ -9,7 +9,6 @@ import (
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/mem"
 	"math"
-	"node/utils"
 )
 
 type StatusLogic struct {
@@ -45,53 +44,54 @@ type ServerStatusData struct {
 func (l StatusLogic) Server() ServerStatusData {
 	var status ServerStatusData
 
-	cpuInfo, err := cpu.Info()
-	if err == nil && len(cpuInfo) > 0 {
-		status.Cpu.Max = len(cpuInfo) * 100 // 100% на каждое ядро
-	}
-
-	cpuUsage, err := cpu.Percent(0, false)
-	if err == nil && len(cpuUsage) > 0 {
-		status.Cpu.Use = int(math.Round(cpuUsage[0]))
-	}
+	// Процессор
+	status.Cpu.Max, _ = cpu.Counts(true)
+	cpuUsage, _ := cpu.Percent(0, false)
+	status.Cpu.Use = int(math.Round(cpuUsage[0]))
 
 	// Память
-	memInfo, err := mem.VirtualMemory()
-	if err == nil {
-		status.Mem.Max = int(memInfo.Total / 1024 / 1024) // в MB
-		status.Mem.Use = int(memInfo.Used / 1024 / 1024)  // в MB
-	}
+	memInfo, _ := mem.VirtualMemory()
+	status.Mem.Max = int(memInfo.Total / 1024 / 1024) // в MB
+	status.Mem.Use = int(memInfo.Used / 1024 / 1024)  // в MB
 
 	// Диск
-	diskInfo, err := disk.Usage("/")
-	if err == nil {
-		status.Disk.Max = int(diskInfo.Total / 1024 / 1024) // в MB
-		status.Disk.Use = int(diskInfo.Used / 1024 / 1024)  // в MB
-	}
+	diskInfo, _ := disk.Usage("/")
+	status.Disk.Max = int(diskInfo.Total / 1024 / 1024) // в MB
+	status.Disk.Use = int(diskInfo.Used / 1024 / 1024)  // в MB
 
 	return status
 }
 
-type DeploymentStatusData map[string]struct {
+type DeploymentStatusData struct {
 	Started int `json:"started"`
 	Stopped int `json:"stopped"`
 	Total   int `json:"total"`
 }
 
-func (l StatusLogic) Deployment(deployment, pod string) ([]types.Container, error) {
+func (l StatusLogic) Runner() (map[string]DeploymentStatusData, error) {
+	var out map[string]DeploymentStatusData
 	var containers []types.Container
 	var err error
 	containers, err = l.cli.ContainerList(context.Background(), container.ListOptions{All: true})
 	if err != nil {
-		return containers, err
+		return out, err
 	}
 
-	if deployment != "" {
-		containers = utils.ContainersDeploymentFilter(deployment, containers)
-	}
-	if pod != "" {
-		containers = utils.ContainersPodFilter(pod, containers)
+	for _, c := range containers {
+		if label, ok := c.Labels["ru.m8s.deployment.name"]; ok {
+			var deployStatus DeploymentStatusData = out[label]
+
+			deployStatus.Total = deployStatus.Total + 1
+			switch c.State {
+			case "running":
+				deployStatus.Started = deployStatus.Started + 1
+			default:
+				deployStatus.Started = deployStatus.Started + 1
+			}
+
+			out[label] = deployStatus
+		}
 	}
 
-	return containers, nil
+	return out, nil
 }
