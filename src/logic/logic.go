@@ -1,9 +1,6 @@
 package logic
 
-import (
-	"node/db"
-	"node/utils"
-)
+import "node/src/utils"
 
 type Status interface {
 	Server() ServerStatusData
@@ -18,14 +15,12 @@ type Config interface {
 }
 
 type Logic struct {
-	db     *db.DB
 	Status Status
 	Config Config
 }
 
-func NewLogic(db *db.DB) *Logic {
+func NewLogic() *Logic {
 	return &Logic{
-		db:     db,
 		Status: NewStatusLogic(),
 		Config: NewConfigLogic(),
 	}

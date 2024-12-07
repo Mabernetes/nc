@@ -3,7 +3,7 @@ package logic
 import (
 	"fmt"
 	"gopkg.in/yaml.v3"
-	"node/utils"
+	"node/src/utils"
 	"os"
 	"path/filepath"
 	"regexp"

@@ -2,7 +2,7 @@ package cron
 
 import (
 	"log"
-	"node/logic"
+	"node/src/logic"
 	"os"
 	"os/exec"
 )

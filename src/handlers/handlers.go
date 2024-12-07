@@ -1,8 +1,8 @@
-package controllers
+package handlers
 
 import (
 	"github.com/gin-gonic/gin"
-	"node/logic"
+	"node/src/logic"
 )
 
 type Status interface {
@@ -25,7 +25,7 @@ type Controller struct {
 func NewController(logic *logic.Logic) *Controller {
 	return &Controller{
 		logic:  logic,
-		Status: NewStatusController(logic),
-		Config: NewConfigController(logic),
+		Status: NewStatusHandler(logic),
+		Config: NewConfigHandler(logic),
 	}
 }

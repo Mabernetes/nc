@@ -1,19 +1,19 @@
-package controllers
+package handlers
 
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/swag/example/celler/httputil"
 	"net/http"
-	"node/logic"
-	"node/utils"
+	"node/src/logic"
+	"node/src/utils"
 )
 
-type ConfigController struct {
+type ConfigHandler struct {
 	logic *logic.Logic
 }
 
-func NewConfigController(logic *logic.Logic) *ConfigController {
-	return &ConfigController{logic: logic}
+func NewConfigHandler(logic *logic.Logic) *ConfigHandler {
+	return &ConfigHandler{logic: logic}
 }
 
 // GetTree
@@ -24,7 +24,7 @@ func NewConfigController(logic *logic.Logic) *ConfigController {
 // @Success      200  {object}  logic.ConfigsTree
 // @Failure      500  {object}  interface{}
 // @Router       /configs/ [get]
-func (h *ConfigController) GetTree(ctx *gin.Context) {
+func (h *ConfigHandler) GetTree(ctx *gin.Context) {
 	data, err := h.logic.Config.GetTree()
 	if err != nil {
 		httputil.NewError(ctx, http.StatusInternalServerError, err)
@@ -41,7 +41,7 @@ func (h *ConfigController) GetTree(ctx *gin.Context) {
 // @Success      200  {object}  utils.ComposeFile
 // @Failure      500  {object}  interface{}
 // @Router       /configs/:deployment/:pod [get]
-func (h *ConfigController) GetConfig(ctx *gin.Context) {
+func (h *ConfigHandler) GetConfig(ctx *gin.Context) {
 	var deployment, pod string
 	deployment = ctx.Param("deployment")
 	pod = ctx.Param("pod")
@@ -60,7 +60,7 @@ func (h *ConfigController) GetConfig(ctx *gin.Context) {
 // @Failure      500  {object}  interface{}
 // @Router       /configs/:deployment/:pod [post]
 // @Router       /configs/:deployment/:pod [put]
-func (h *ConfigController) UpdateConfig(ctx *gin.Context) {
+func (h *ConfigHandler) UpdateConfig(ctx *gin.Context) {
 	var deployment, pod string
 	var data utils.ComposeFile
 	deployment = ctx.Param("deployment")

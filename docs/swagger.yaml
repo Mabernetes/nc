@@ -48,8 +48,6 @@ definitions:
       services:
         additionalProperties: true
         type: object
-      version:
-        type: string
       volumes:
         additionalProperties: true
         type: object
@@ -60,10 +58,8 @@ info:
     email: uraevdmitrij031@gmail.com
     name: Marsh Meg
     url: https://t.me/marshmeg
-  description: This is a sample server seller server.
   license:
     name: MI
-  termsOfService: http://swagger.io/terms/
   title: M8s Node Controller API
   version: "0.1"
 paths:

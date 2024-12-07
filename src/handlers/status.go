@@ -1,17 +1,17 @@
-package controllers
+package handlers
 
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"node/logic"
+	"node/src/logic"
 )
 
-type StatusController struct {
+type StatusHandler struct {
 	logic *logic.Logic
 }
 
-func NewStatusController(logic *logic.Logic) *StatusController {
-	return &StatusController{logic: logic}
+func NewStatusHandler(logic *logic.Logic) *StatusHandler {
+	return &StatusHandler{logic: logic}
 }
 
 // Server
@@ -22,7 +22,7 @@ func NewStatusController(logic *logic.Logic) *StatusController {
 // @Success      200  {object}  logic.ServerStatusData
 // @Failure      500  {object}  interface{}
 // @Router       /status/server [get]
-func (h *StatusController) Server(ctx *gin.Context) {
+func (h *StatusHandler) Server(ctx *gin.Context) {
 	data := h.logic.Status.Server()
 
 	ctx.JSON(http.StatusOK, data)
@@ -36,7 +36,7 @@ func (h *StatusController) Server(ctx *gin.Context) {
 // @Success      200  {object} 	map[string]logic.DeploymentStatusData
 // @Failure      500  {object}  interface{}
 // @Router       /status/runner [get]
-func (h *StatusController) Runner(ctx *gin.Context) {
+func (h *StatusHandler) Runner(ctx *gin.Context) {
 	data, err := h.logic.Status.Runner()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, err)

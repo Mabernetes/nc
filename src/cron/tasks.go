@@ -1,6 +1,6 @@
 package cron
 
-import "node/logic"
+import "node/src/logic"
 
 type Runner interface {
 	Start()

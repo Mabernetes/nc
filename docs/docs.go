@@ -9,7 +9,6 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "Marsh Meg",
             "url": "https://t.me/marshmeg",
@@ -253,9 +252,6 @@ const docTemplate = `{
                     "type": "object",
                     "additionalProperties": true
                 },
-                "version": {
-                    "type": "string"
-                },
                 "volumes": {
                     "type": "object",
                     "additionalProperties": true
@@ -272,7 +268,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "M8s Node Controller API",
-	Description:      "This is a sample server seller server.",
+	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

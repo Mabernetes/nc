@@ -1,9 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample server seller server.",
         "title": "M8s Node Controller API",
-        "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "Marsh Meg",
             "url": "https://t.me/marshmeg",
@@ -246,9 +244,6 @@
                 "services": {
                     "type": "object",
                     "additionalProperties": true
-                },
-                "version": {
-                    "type": "string"
                 },
                 "volumes": {
                     "type": "object",
