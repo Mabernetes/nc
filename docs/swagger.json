@@ -12,8 +12,8 @@
         },
         "version": "0.1"
     },
-    "host": "localhost:8000",
-    "basePath": "/",
+    "host": "localhost:9000",
+    "basePath": "/api",
     "paths": {
         "/configs/": {
             "get": {

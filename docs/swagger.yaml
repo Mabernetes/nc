@@ -1,4 +1,4 @@
-basePath: /
+basePath: /api
 definitions:
   logic.ConfigFile:
     properties:
@@ -52,7 +52,7 @@ definitions:
         additionalProperties: true
         type: object
     type: object
-host: localhost:8000
+host: localhost:9000
 info:
   contact:
     email: uraevdmitrij031@gmail.com

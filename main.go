@@ -21,8 +21,8 @@ import (
 
 // @license.name 	MI
 
-// @host      		localhost:8000
-// @BasePath  		/
+// @host      		localhost:9000
+// @BasePath  		/api
 func main() {
 	// Инициализация слоёв
 	var Logic *logic.Logic = logic.NewLogic()

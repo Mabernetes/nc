@@ -264,8 +264,8 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "0.1",
-	Host:             "localhost:8000",
-	BasePath:         "/",
+	Host:             "localhost:9000",
+	BasePath:         "/api",
 	Schemes:          []string{},
 	Title:            "M8s Node Controller API",
 	Description:      "",
