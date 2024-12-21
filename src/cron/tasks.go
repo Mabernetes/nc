@@ -1,6 +1,6 @@
 package cron
 
-import "node/src/logic"
+import "github.com/Mabernetes/nc/src/logic"
 
 type Runner interface {
 	Start()

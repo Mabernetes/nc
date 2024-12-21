@@ -1,9 +1,9 @@
 package handlers
 
 import (
+	"github.com/Mabernetes/nc/src/logic"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"node/src/logic"
 )
 
 type StatusHandler struct {

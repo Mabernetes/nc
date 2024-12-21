@@ -1,8 +1,8 @@
 package cron
 
 import (
+	"github.com/Mabernetes/nc/src/logic"
 	"log"
-	"node/src/logic"
 	"os"
 	"os/exec"
 )

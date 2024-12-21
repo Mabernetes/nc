@@ -2,13 +2,13 @@ package main
 
 import (
 	"context"
+	_ "github.com/Mabernetes/nc/docs"
+	"github.com/Mabernetes/nc/src/cron"
+	"github.com/Mabernetes/nc/src/handlers"
+	"github.com/Mabernetes/nc/src/logic"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	_ "node/docs"
-	"node/src/cron"
-	"node/src/handlers"
-	"node/src/logic"
 	"time"
 )
 

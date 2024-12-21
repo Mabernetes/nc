@@ -1,11 +1,11 @@
 package handlers
 
 import (
+	"github.com/Mabernetes/nc/src/logic"
+	"github.com/Mabernetes/nc/src/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/swag/example/celler/httputil"
 	"net/http"
-	"node/src/logic"
-	"node/src/utils"
 )
 
 type ConfigHandler struct {

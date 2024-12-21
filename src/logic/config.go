@@ -2,8 +2,8 @@ package logic
 
 import (
 	"fmt"
+	"github.com/Mabernetes/nc/src/utils"
 	"gopkg.in/yaml.v3"
-	"node/src/utils"
 	"os"
 	"path/filepath"
 	"regexp"

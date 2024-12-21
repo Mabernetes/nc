@@ -1,6 +1,6 @@
 package logic
 
-import "node/src/utils"
+import "github.com/Mabernetes/nc/src/utils"
 
 type Status interface {
 	Server() ServerStatusData

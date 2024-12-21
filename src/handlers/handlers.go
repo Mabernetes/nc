@@ -1,8 +1,8 @@
 package handlers
 
 import (
+	"github.com/Mabernetes/nc/src/logic"
 	"github.com/gin-gonic/gin"
-	"node/src/logic"
 )
 
 type Status interface {
