@@ -1,4 +1,4 @@
-package logic
+package services
 
 import (
 	"context"
@@ -10,6 +10,11 @@ import (
 	"github.com/shirou/gopsutil/v3/mem"
 	"math"
 )
+
+type Status interface {
+	Server() ServerStatusData
+	Runner() (map[string]DeploymentStatusData, error)
+}
 
 type StatusLogic struct {
 	cli *client.Client

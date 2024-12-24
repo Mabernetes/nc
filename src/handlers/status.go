@@ -1,16 +1,16 @@
 package handlers
 
 import (
-	"github.com/Mabernetes/nc/src/logic"
+	"github.com/Mabernetes/nc/src/services"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 type StatusHandler struct {
-	logic *logic.Logic
+	logic *services.Services
 }
 
-func NewStatusHandler(logic *logic.Logic) *StatusHandler {
+func NewStatusHandler(logic *services.Services) *StatusHandler {
 	return &StatusHandler{logic: logic}
 }
 
@@ -19,7 +19,7 @@ func NewStatusHandler(logic *logic.Logic) *StatusHandler {
 // @Tags         status
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  logic.ServerStatusData
+// @Success      200  {object}  services.ServerStatusData
 // @Failure      500  {object}  interface{}
 // @Router       /status/server [get]
 func (h *StatusHandler) Server(ctx *gin.Context) {
@@ -33,7 +33,7 @@ func (h *StatusHandler) Server(ctx *gin.Context) {
 // @Tags         status
 // @Accept       json
 // @Produce      json
-// @Success      200  {object} 	map[string]logic.DeploymentStatusData
+// @Success      200  {object} 	map[string]services.DeploymentStatusData
 // @Failure      500  {object}  interface{}
 // @Router       /status/runner [get]
 func (h *StatusHandler) Runner(ctx *gin.Context) {

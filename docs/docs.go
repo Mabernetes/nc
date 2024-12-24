@@ -40,7 +40,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/logic.ConfigFile"
+                                "$ref": "#/definitions/services.ConfigFile"
                             }
                         }
                     },
@@ -139,7 +139,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "object",
                             "additionalProperties": {
-                                "$ref": "#/definitions/logic.DeploymentStatusData"
+                                "$ref": "#/definitions/services.DeploymentStatusData"
                             }
                         }
                     },
@@ -166,7 +166,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/logic.ServerStatusData"
+                            "$ref": "#/definitions/services.ServerStatusData"
                         }
                     },
                     "500": {
@@ -178,7 +178,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "logic.ConfigFile": {
+        "services.ConfigFile": {
             "type": "object",
             "properties": {
                 "deployment": {
@@ -189,7 +189,7 @@ const docTemplate = `{
                 }
             }
         },
-        "logic.DeploymentStatusData": {
+        "services.DeploymentStatusData": {
             "type": "object",
             "properties": {
                 "started": {
@@ -203,7 +203,7 @@ const docTemplate = `{
                 }
             }
         },
-        "logic.ServerStatusData": {
+        "services.ServerStatusData": {
             "type": "object",
             "properties": {
                 "cpu": {

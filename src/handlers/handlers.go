@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/Mabernetes/nc/src/logic"
+	"github.com/Mabernetes/nc/src/services"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,12 +17,12 @@ type Config interface {
 }
 
 type Controller struct {
-	logic  *logic.Logic
+	logic  *services.Services
 	Status Status
 	Config Config
 }
 
-func NewController(logic *logic.Logic) *Controller {
+func NewController(logic *services.Services) *Controller {
 	return &Controller{
 		logic:  logic,
 		Status: NewStatusHandler(logic),

@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/Mabernetes/nc/src/logic"
+	"github.com/Mabernetes/nc/src/services"
 	"github.com/Mabernetes/nc/src/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/swag/example/celler/httputil"
@@ -9,10 +9,10 @@ import (
 )
 
 type ConfigHandler struct {
-	logic *logic.Logic
+	logic *services.Services
 }
 
-func NewConfigHandler(logic *logic.Logic) *ConfigHandler {
+func NewConfigHandler(logic *services.Services) *ConfigHandler {
 	return &ConfigHandler{logic: logic}
 }
 
@@ -21,7 +21,7 @@ func NewConfigHandler(logic *logic.Logic) *ConfigHandler {
 // @Tags         config
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  logic.ConfigsTree
+// @Success      200  {object}  services.ConfigsTree
 // @Failure      500  {object}  interface{}
 // @Router       /configs/ [get]
 func (h *ConfigHandler) GetTree(ctx *gin.Context) {
